@@ -34,6 +34,7 @@ namespace BookReader.Controllers
                 return PartialView("_RegisterBody");
             }
             return PartialView("_RegisterBody", model);
+            //testing GIT//
         }
 
         [HttpGet]
