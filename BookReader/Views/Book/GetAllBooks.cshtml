@@ -1,0 +1,31 @@
+﻿@using BookReader.Domain.Response
+
+@model List<BookReader.Domain.Entity.Book>
+@{
+    ViewData["Title"] = "AllBooks";
+}
+
+
+
+<div class="row d-flex justify-content-center ">
+<h1 style="padding-left:40%">AllBooks</h1>
+@foreach (var book in Model)
+{ 
+        <div class="row row-cols-1 col-md-4 text-center" style="margin-left:auto;--bs-gutter-x: 0;">
+        <div class="col" style="max-width: 13rem; margin:auto;">
+            <div class="card-deck">
+                <div class="card" style="max-width:450px">
+                    <img src="~/assets/troelsen.png" class="card-img-top">
+                    <div class="card-body">
+                            <h5 class="card-header">@book.Title</h5>
+                            <h5 class="card-subtitle">@book.Price</h5>
+                            <p class="card-text">@book.Description</p>
+                                
+                                <button class="btn btn-outline-primary card-link" onclick="openModalBookDescription({url: '/book/GetByIdPartial', data: '@book.Id'});" data-toggle="ajax-modal" data-target="Modal">Show extra info</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
+}
+</div>

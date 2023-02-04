@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<!-- Head -->
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<title>@ViewData["Title"] - BookReader</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+</head>
+
+<body>
+	<!-- Header -->
+	<header>
+		<nav class="navbar navbar-expand-sm navbar-toggleable-sm box-shadow mb-3">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="#">
+					<img class="logo" src="~/assets/logo.png" /> BookReader
+				</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				  <ul class="navbar-nav ml-auto">
+					<li class="nav-item">
+					  <a class="nav-link active" aria-current="page" href="#"><img class="book_icon" src="~/assets/home.png"/>Home</a>
+					</li>
+					<li class="nav-item">
+					  <a class="nav-link" href="#"><img class="book_icon" src="~/assets/book.png"/>Bible</a>
+					</li>
+					<li class="nav-item">
+					  <a class="nav-link" href="#"><img class="book_icon" src="~/assets/store.png"/>Store</a>
+					</li>
+					<li class="nav-item">
+					  <a class="nav-link" href="#"><img class="book_icon" src="~/assets/reading.png"/>Reader</a>
+					</li>
+				  </ul>
+					<!-- Button trigger for Login/Register modal -->
+					<button type="button" class="btn btn-primary" onclick="openModalLoginRegister(event)">
+						Login
+					</button>
+					<!-- div for login/register modals (loading via ajax) first popup up on press Login button -->
+					<div id="my_login_modal"> </div>
+				</div>								
+			</div>
+		</nav>
+	</header>
+	<!-- Main -->
+	<main role="main" class="pb-3">
+		<div class="container-fluid overflow-hidden">
+			<div class="row" style="height: 1000px;">
+				<div class="col-7 rounded-3 d-flex justify-content-center" id="generated_body" style="overflow: auto;margin-left:5%;max-height:95%; background-color: lightgray;">
+					@RenderBody()
+				</div>
+				<div class="modal fade" id="my_card_modal_show" tabindex="-1">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">Информация</h5>
+							</div>
+							<!-- div for card description modal (loading via ajax) -->
+							<div class="modal-body" id="my_card_modal"></div>
+							<div class="modal-footer">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-3 rounded-3 offset-1" style="max-height:25%;background-color: #0dcaf0; flex-flow: row wrap;">тестовая колонка</div>
+			</div>
+		</div>
+	</main>
+
+	<!-- Footer -->
+	<footer class="footer fixed-bottom" style="background-color: aquamarine;">
+		<div class="container">
+			&copy; 2023 - BookReader_PET - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+		</div>
+	</footer>
+
+
+	<!-- JavaScript and dependencies -->
+	
+	<script src="~/lib/jquery/dist/jquery.js"></script>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+	<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+	<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+	<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+	<script src="~/lib/jquery-validation-unobtrusive/jquery.unobtrusive-ajax.js"></script>
+	<script src="~/lib/jquery-validation-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+
+
+	<!-- Custom JS scripts -->
+	
+	<script src="~/js/openModalBookDescription.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	<script src="~/js/swapTwoModals.js"></script>
+	<script src="~/js/CompleteRegistration.js"></script>
+	<script src="~/js/openModalLoginRegister.js"></script>
+	
+	
+	@await RenderSectionAsync("Scripts", required: false)
+
+</body>
+
+</html>
