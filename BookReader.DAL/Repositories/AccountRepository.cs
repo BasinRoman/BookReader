@@ -1,15 +1,17 @@
 ﻿using BookReader.DAL.Interfaces;
 using BookReader.Domain.Entity;
 using BookReader.Domain.Enum;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BookReader.DAL.Repositories
 {
-	public class AccountRepository : IBaseRepository<User>
+	public class AccountRepository : IBaseRepository<User>, IAccountRepository
 	{
 		public readonly ApplicationDbContext _db;
 
@@ -40,7 +42,13 @@ namespace BookReader.DAL.Repositories
 			return _db.Users;			
 		}
 
-		public Task<IEnumerable<User>> Select()
+        public async Task<bool> IfLoginExist(string loginName)
+        {
+			//return await _db.Users.FirstOrDefaultAsync(x => x.Login == loginName);
+			return await _db.Users.AnyAsync(x => x.Login == loginName);
+		}
+
+        public Task<IEnumerable<User>> Select()
 		{
 			throw new NotImplementedException();
 		}

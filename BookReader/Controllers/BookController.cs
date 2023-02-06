@@ -108,10 +108,6 @@ namespace BookReader.Controllers
             }
         }
 
-
-
-
-
         [HttpGet]
         public IActionResult Error()
         {

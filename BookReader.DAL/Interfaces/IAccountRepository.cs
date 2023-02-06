@@ -11,5 +11,6 @@ namespace BookReader.DAL.Interfaces
 {
     public interface IAccountRepository : IBaseRepository<User>
     {
+        Task<bool> IfLoginExist(string loginName);
     }
 }

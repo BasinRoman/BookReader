@@ -3,12 +3,14 @@
 
 @model BookReader.Domain.ViewModel.RegisterViewModel
 @Html.AntiForgeryToken()
+
 <div class="validation" asp-validation-summary="All" style="font-size:23px; font-family:Impact; color: red" class="text-danger text-center"></div>
 
 <div class="form-outline form-white mb-4">
 	<label asp-for="Login"></label><br />
-	<input asp-for="Login" class="form-control textbox-dg font-weight-bold text-center" placeholder="A-Za-z0-9" type="text">
+	<input asp-for="Login" id="LoginInputField" class="form-control textbox-dg font-weight-bold text-center" placeholder="A-Za-z0-9" type="text" onkeyup="CheckLoginExist()">
 	<span asp-validation-for="Login"></span>
+	<span id="LoginInputSpan"></span>
 
 </div>
 <div class="form-outline form-white mb-4">
@@ -19,6 +21,6 @@
 <div class="form-outline form-white mb-4">
 	<label asp-for="PasswordConfirm"></label><br />
 	<input  asp-for="PasswordConfirm" placeholder=" " class="form-control textbox-dg font-weight-bold text-center" type="password">
-	<span asp-validation-for="PasswordConfirm"></span>
+	<span asp-validation-for="PasswordConfirm"></span>	
 </div>
 <button id = "submitButton" class="btn btn-outline-light btn-lg px-5" type="submit">Complete registration</button>

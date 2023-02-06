@@ -14,26 +14,58 @@ using System.Security.Cryptography.X509Certificates;
 using Microsoft.EntityFrameworkCore;
 using BookReader.Domain.Extensions;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics.Tracing;
+using BookReader.Domain.Enum;
 
 namespace BookReader.Service.Implementations
 {
 	public class AccountService : IAccountService
 	{
 
-		private readonly IBaseRepository<User> _userRepository;
+		private readonly IAccountRepository _userRepository;
 
-		public AccountService(IBaseRepository<User> AccountRepository)
+		public AccountService(IAccountRepository AccountRepository)
 		{
 			_userRepository= AccountRepository;
 		}
 
-		public async Task<IBaseResponse<ClaimsIdentity>> Register(RegisterViewModel userViewModel)
+        public async Task<IBaseResponse<bool>> IfLoginExist(string login)
+        {
+			var baseResponse = new BaseResponse<bool>();
+			try
+			{
+				var IfLoginExist = await _userRepository.IfLoginExist(login);
+				if (IfLoginExist)
+				{
+					baseResponse.Description = "This login already exist";
+					baseResponse.statusCode = StatusCode.ok;
+					baseResponse.Data = true;
+					return baseResponse;
+				}
+				baseResponse.statusCode= StatusCode.ok;
+				baseResponse.Data = false;
+				baseResponse.Description = "This login is not exist in DB";
+				return baseResponse;
+
+			}
+			catch (Exception ex)
+			{
+				baseResponse.Description = ex.Message;
+				baseResponse.statusCode = StatusCode.InternatlServiceError;
+				return baseResponse;
+			}
+
+            throw new NotImplementedException();
+        }
+
+        public async Task<IBaseResponse<ClaimsIdentity>> Register(RegisterViewModel userViewModel)
 		{
 			var baseResponse = new BaseResponse<ClaimsIdentity>();
 			try
-			{				
+			{
 				var user_to_create = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.Login == userViewModel.Login);
-				if  (user_to_create != null)
+				if (user_to_create != null)
 				{
 					baseResponse.Description = "User with this name already exist";
 					baseResponse.statusCode = Domain.Enum.StatusCode.InternatlServiceError;
@@ -48,7 +80,6 @@ namespace BookReader.Service.Implementations
 				};
 				bool request = await _userRepository.Create(user_to_create);
 
-								
 				if (!request)
 				{
 					baseResponse.statusCode = Domain.Enum.StatusCode.InternatlServiceError;
@@ -73,8 +104,8 @@ namespace BookReader.Service.Implementations
 				};
 			}
 		}
-
-		private ClaimsIdentity Authenticate(User user)
+	
+	private ClaimsIdentity Authenticate(User user)
 		{
 			var claimsIdentity = new List<Claim>()
 			{
@@ -83,6 +114,9 @@ namespace BookReader.Service.Implementations
 			};
 			return new ClaimsIdentity(claimsIdentity, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
 		}
+
+		
+
        
     }
 }

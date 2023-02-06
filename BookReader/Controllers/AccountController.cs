@@ -2,6 +2,7 @@
 using BookReader.Domain.ViewModel;
 using BookReader.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Protocol.Core.Types;
 
 namespace BookReader.Controllers
 {
@@ -12,6 +13,18 @@ namespace BookReader.Controllers
         {
             accountService = _accountService;
         }
+
+        [HttpPost]
+        public async Task<IActionResult> IfLoginExist(string input_login)
+        {
+            var response = await accountService.IfLoginExist(input_login);
+            if (response.statusCode == Domain.Enum.StatusCode.ok)
+            {
+                return Json(response);
+            }
+            return BadRequest(response.Description);
+        }
+        
 
         [HttpGet]
         public ActionResult CreateNewUser()
