@@ -55,6 +55,17 @@ body {
     display: block;
     overflow-x: hidden;
     font-family: Eugusto_font;
+    background-color: #16171b;
+    background-image: url("/assets/backgroundPicture.png");
+    background-size: 200px 200px;
+    color: darkgrey;
+    margin: 15px;
+}
+
+#generated_body {
+    background-image: url("/assets/backgroundPicture.png");
+    background-color: #222326;
+    background-size: 200px 200px;
 }
 
 .navbar-brand img {
@@ -64,14 +75,17 @@ body {
 .navbar-brand, #text {
     font-size: 25px;
     text-transform: uppercase;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
 }
 
 .pb-3 {
     min-height: 200px;
 }
 
+
+
 #navbarSupportedContent > ul > li > a {
-    color: #a9a9a9;
+    
     font-size: 22px;
     margin: auto 10px;
 }
@@ -81,8 +95,22 @@ body {
         transition-delay: 0.1s;
     }
 
+
+    
+
 body > header > nav > div {
-    background-color: lightgray;
+    background-image: url("/assets/backgroundPicture.png");
+    background-color: #222326;
+    background-size: 200px 200px;
+    border-radius: 1rem;
+}
+
+
+#right_side_bar {
+    background-image: url("/assets/backgroundPicture.png");
+    background-color: #222326;
+    background-size: 200px 200px;
+    color:darkgrey;
 }
 
 a.navbar-brand {
@@ -135,6 +163,9 @@ button.accept-policy {
     width: 100%;
     white-space: nowrap;
     line-height: 60px;
+    background-size: 200px 200px;
+    background-color: #222326;
+    background-image: url("/assets/backgroundPicture.png")
 }
 
 

@@ -23,22 +23,36 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				  <ul class="navbar-nav ml-auto">
 					<li class="nav-item">
-					  <a class="nav-link active" aria-current="page" href="#"><img class="book_icon" src="~/assets/home.png"/>Home</a>
+					  <a class="nav-link active" aria-current="page" href="/Home/Index/"><img class="book_icon" src="~/assets/home.png"/>Home</a>
 					</li>
 					<li class="nav-item">
-					  <a class="nav-link" href="#"><img class="book_icon" src="~/assets/book.png"/>Bible</a>
+					  <a class="nav-link" href="/Book/GetAllBooks/"><img class="book_icon" src="~/assets/book.png"/>Bible</a>
 					</li>
 					<li class="nav-item">
 					  <a class="nav-link" href="#"><img class="book_icon" src="~/assets/store.png"/>Store</a>
 					</li>
-					<li class="nav-item">
-					  <a class="nav-link" href="#"><img class="book_icon" src="~/assets/reading.png"/>Reader</a>
-					</li>
+					@if (User.Identity.IsAuthenticated)
+					{
+						<li class="nav-item">
+						  <a class="nav-link" href="#"><img class="book_icon" src="~/assets/reading.png"/>Reader</a>
+						</li>
+					}
 				  </ul>
-					<!-- Button trigger for Login/Register modal -->
-					<button type="button" class="btn btn-primary" onclick="openModalLoginRegister(event)">
-						Login
-					</button>
+					@if (!User.Identity.IsAuthenticated)
+					{
+						<!-- Button trigger for Login/Register modal -->
+						<button type="button" class="btn btn-primary" onclick="openModalLoginRegister(event)">
+							Login
+						</button>
+					}
+					else
+					{
+						<!-- Button trigger for Log Out modal -->
+						<a asp-controller="Account" asp-action="LogOut">
+							<button  class="btn btn-primary">Log Out</button>
+						</a>
+					}
+
 					<!-- div for login/register modals (loading via ajax) first popup up on press Login button -->
 					<div id="my_login_modal"> </div>
 				</div>								
@@ -49,7 +63,7 @@
 	<main role="main" class="pb-3">
 		<div class="container-fluid overflow-hidden">
 			<div class="row" style="height: 1000px;">
-				<div class="col-7 rounded-3 d-flex justify-content-center" id="generated_body" style="overflow: auto;margin-left:5%;max-height:95%; background-color: lightgray;">
+				<div class="col-7 rounded-3 d-flex justify-content-center" id="generated_body" style="overflow: auto;margin-left:5%;max-height:95%;">
 					@RenderBody()
 				</div>
 				<div class="modal fade" id="my_card_modal_show" tabindex="-1">
@@ -65,13 +79,13 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-3 rounded-3 offset-1" style="max-height:25%;background-color: #0dcaf0; flex-flow: row wrap;">тестовая колонка</div>
+				<div id="right_side_bar" class="col-3 rounded-3 offset-1" style="max-height:25%; flex-flow: row wrap;">тестовая колонка</div>
 			</div>
 		</div>
 	</main>
 
 	<!-- Footer -->
-	<footer class="footer fixed-bottom" style="background-color: aquamarine;">
+	<footer class="footer fixed-bottom">
 		<div class="container">
 			&copy; 2023 - BookReader_PET - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
 		</div>

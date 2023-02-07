@@ -1,6 +1,8 @@
 ﻿using BookReader.DAL.Interfaces;
 using BookReader.Domain.Entity;
 using BookReader.Domain.Enum;
+using BookReader.Domain.Extensions;
+using BookReader.Domain.ViewModel;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -41,6 +43,11 @@ namespace BookReader.DAL.Repositories
 		{
 			return _db.Users;			
 		}
+
+        public async Task<User> LoginTry(LoginViewModel loginViewModel)
+        {
+			return await _db.Users.FirstOrDefaultAsync(x => x.Login == loginViewModel.Login && x.Password == HashPasswordExtension.HashPassword(loginViewModel.Password));
+        }
 
         public async Task<bool> IfLoginExist(string loginName)
         {

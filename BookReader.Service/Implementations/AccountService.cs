@@ -30,6 +30,12 @@ namespace BookReader.Service.Implementations
 			_userRepository= AccountRepository;
 		}
 
+        public Task<IBaseResponse<User>> GetUserByLogin(LoginViewModel LoginViewModel)
+        {
+            throw new NotImplementedException();
+        }
+
+		//CHECK IF LOGIN EXIST IN DB
         public async Task<IBaseResponse<bool>> IfLoginExist(string login)
         {
 			var baseResponse = new BaseResponse<bool>();
@@ -55,10 +61,45 @@ namespace BookReader.Service.Implementations
 				baseResponse.statusCode = StatusCode.InternatlServiceError;
 				return baseResponse;
 			}
-
-            throw new NotImplementedException();
         }
 
+		//LOGIN
+		public async Task<IBaseResponse<ClaimsIdentity>> LoginTry(LoginViewModel loginViewModel)
+		{
+			var baseResponse = new BaseResponse<ClaimsIdentity>();
+			var LoginExist = await IfLoginExist(loginViewModel.Login);
+            try
+			{
+				if (!LoginExist.Data)
+				{
+                    baseResponse.statusCode = StatusCode.InternatlServiceError;
+					baseResponse.Description = "Login not found!";
+					return baseResponse;
+                }
+				var loginTry = await _userRepository.LoginTry(loginViewModel);
+				if (loginTry != null)
+				{
+					baseResponse.statusCode = StatusCode.ok;
+					baseResponse.Description = "Authentication succeeded";
+					var result = Authenticate(loginTry);
+					baseResponse.Data = result;
+                    return baseResponse;
+				}
+				baseResponse.statusCode = StatusCode.InternatlServiceError;
+				baseResponse.Description = "Wrong password";
+				return baseResponse;
+			}
+			
+			catch (Exception ex)
+			{
+                baseResponse.Description = ex.Message;
+                baseResponse.statusCode = StatusCode.InternatlServiceError;
+                return baseResponse;
+            }
+		}
+
+
+		//REGISTER 
         public async Task<IBaseResponse<ClaimsIdentity>> Register(RegisterViewModel userViewModel)
 		{
 			var baseResponse = new BaseResponse<ClaimsIdentity>();
@@ -115,8 +156,5 @@ namespace BookReader.Service.Implementations
 			return new ClaimsIdentity(claimsIdentity, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
 		}
 
-		
-
-       
     }
 }

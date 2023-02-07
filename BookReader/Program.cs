@@ -7,6 +7,7 @@ using BookReader.Service.Implementations;
 using Microsoft.EntityFrameworkCore;
 using Westwind.AspNetCore.LiveReload;
 using BookReader.Domain.Entity;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +42,7 @@ builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IBaseRepository<User>, AccountRepository>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 
 
 
@@ -70,6 +72,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapControllerRoute(
     name: "default",

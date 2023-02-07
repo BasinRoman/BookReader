@@ -15,6 +15,7 @@ namespace BookReader.Service.Interfaces
 	public interface IAccountService
 	{
 		Task<IBaseResponse<ClaimsIdentity>> Register(RegisterViewModel userViewModel);
-		Task<IBaseResponse<bool>> IfLoginExist(String login);
+		Task<IBaseResponse<bool>> IfLoginExist(string login);
+		Task<IBaseResponse<ClaimsIdentity>> LoginTry(LoginViewModel LoginViewModel);
     }
 }
