@@ -3,6 +3,7 @@ using BookReader.Domain.Entity;
 using Microsoft.EntityFrameworkCore;
 
 
+
 namespace BookReader.DAL
 {
     public class ApplicationDbContext : DbContext
@@ -30,9 +31,14 @@ namespace BookReader.DAL
             //});
             modelBuilder.ApplyConfiguration(new BookConfiguration());    //  But in the end I moved my model configuration to Configurations folder.
             modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new UserProfileConfiguration());
+            
+
         }
         public DbSet<Book> Book { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<UserProfile> UserProfiles { get; set; }
+
 
     }
 }

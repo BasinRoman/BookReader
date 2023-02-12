@@ -20,7 +20,7 @@ using BookReader.Domain.Enum;
 
 namespace BookReader.Service.Implementations
 {
-	public class AccountService : IAccountService
+	public class AccountService : IAccountInterface
 	{
 
 		private readonly IAccountRepository _userRepository;
@@ -145,6 +145,8 @@ namespace BookReader.Service.Implementations
 				};
 			}
 		}
+
+		
 	
 	private ClaimsIdentity Authenticate(User user)
 		{
@@ -152,6 +154,7 @@ namespace BookReader.Service.Implementations
 			{
 				new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),
 				new Claim(ClaimsIdentity.DefaultRoleClaimType, user.UserRole.ToString())
+				
 			};
 			return new ClaimsIdentity(claimsIdentity, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
 		}

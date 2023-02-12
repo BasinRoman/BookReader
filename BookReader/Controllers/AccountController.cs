@@ -12,8 +12,8 @@ namespace BookReader.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IAccountService accountService;
-        public AccountController(IAccountService _accountService)
+        private readonly IAccountInterface accountService;
+        public AccountController(IAccountInterface _accountService)
         {
             accountService = _accountService;
         }
@@ -29,9 +29,10 @@ namespace BookReader.Controllers
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(response.Data));
                     return RedirectToAction("Index", "Home");
                 }
-                ModelState.AddModelError("", response.Description);
-            }
-            return View(model);
+				TempData["Error"] = response.Description;
+			}
+            
+            return PartialView("ModalLoginRegister");
         }
 
         [AutoValidateAntiforgeryToken]
@@ -83,5 +84,15 @@ namespace BookReader.Controllers
             return PartialView("ModalLoginRegister");
         }
 
-    }
+        //Profile section starts here//
+        public ActionResult ProfileInfo(string login)
+        {
+
+            return View();
+        }
+
+
+        
+        //Profile section ends here//
+	}
 }

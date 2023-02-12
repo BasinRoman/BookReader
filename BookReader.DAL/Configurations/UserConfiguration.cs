@@ -15,6 +15,11 @@ namespace BookReader.DAL.Configurations
 		public void Configure(EntityTypeBuilder<User> builder)
 		{
 			builder.Property(x => x.Id).ValueGeneratedOnAdd();
+			
+			builder.HasOne(x => x.UserProfile).
+				WithOne(x => x.User).
+				HasPrincipalKey<User>(x => x.Id).OnDelete(DeleteBehavior.Cascade);
+			
 			builder.HasData(new User
 			{
 				Id = 1,

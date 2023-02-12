@@ -1,4 +1,6 @@
-﻿using BookReader.DAL.Interfaces;
+﻿using Azure;
+using BookReader.DAL.Interfaces;
+using BookReader.Domain.ViewModel;
 using BookReader.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,26 +8,6 @@ namespace BookReader.Controllers
 {
     public class BookController : Controller
     {
-        //private readonly IBookRepository bookRepository;
-
-        //public BookController(IBookRepository bookRepository)
-        //{
-        //    this.bookRepository = bookRepository;
-        //} 
-
-        //public IActionResult GetAllBooks() //https://localhost:7138/Book/GetAllBooks
-        //{
-        //    var response = bookRepository.Select();
-        //    return View(response);
-        //}
-
-        //public async Task<IActionResult> GetBookById(int id) //https://localhost:7138/Book/GetBookById?id=1
-        //{
-        //    var response = await bookRepository.GetById(id);
-
-        //    return View(response);
-        //}
-
         private readonly IBookService bookService;
         public BookController(IBookService bookService)
         {
@@ -34,8 +16,16 @@ namespace BookReader.Controllers
 
         public async  Task<IActionResult> GetAllBooks() // https://localhost:7138/Book/GetAllBooks
         {
-            var respone = await bookService.GetAllBooks();
-            return View(respone.Data);
+            var response = await bookService.GetAllBooks();
+			if (response.statusCode == Domain.Enum.StatusCode.ok)
+            {
+				return View(response.Data);
+			}
+            else
+            {
+				TempData["Error"] = response.Description;
+                return RedirectToAction("BookError");
+			}
         }
 
         [HttpGet]
@@ -49,9 +39,8 @@ namespace BookReader.Controllers
             else
             {
                 TempData["Error"] = response.Description;
-                return RedirectToAction("Error");
+                return RedirectToAction("BookError");
             }
-            
         }
 
         [HttpGet]
@@ -65,7 +54,7 @@ namespace BookReader.Controllers
             else
             {
                 TempData["Error"] = response.Description;
-                return RedirectToAction("Error");
+                return RedirectToAction("BookError");
             }
         }
 
@@ -75,7 +64,6 @@ namespace BookReader.Controllers
         {
             var response = await bookService.GetById(id);
             return PartialView("GetById", response.Data);
-
         }
 
         [HttpGet]
@@ -89,7 +77,7 @@ namespace BookReader.Controllers
             else
             {
                 TempData["Error"] = response.Description;
-                return RedirectToAction("Error");
+                return RedirectToAction("BookError");
             }
         }
 
@@ -104,16 +92,15 @@ namespace BookReader.Controllers
             else
             {
                 TempData["Error"] = response.Description;
-                return RedirectToAction("Error");
+                return RedirectToAction("BookError");
             }
         }
 
         [HttpGet]
-        public IActionResult Error()
+        public IActionResult BookError()
         {
             var Error = TempData["Error"];
-            return View(Error);
+            return View(new CustomErrorModel { ErrorText = Error.ToString()});
         }
-        
-    }
+	}
 }

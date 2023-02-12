@@ -12,10 +12,8 @@ using System.Threading.Tasks;
 
 namespace BookReader.Service.Interfaces
 {
-	public interface IAccountService
+	public interface IProfileInterface
 	{
-		Task<IBaseResponse<ClaimsIdentity>> Register(RegisterViewModel userViewModel);
-		Task<IBaseResponse<bool>> IfLoginExist(string login);
-		Task<IBaseResponse<ClaimsIdentity>> LoginTry(LoginViewModel LoginViewModel);
+		Task<IBaseResponse<ProfileViewModel>> GetProfile(string userLogin);
     }
 }

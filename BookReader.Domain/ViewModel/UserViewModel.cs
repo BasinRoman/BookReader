@@ -14,6 +14,5 @@ namespace BookReader.Domain.ViewModel
 		public string? Login { get; set; }
 		public string? Password { get; set; }
 		public UserRole UserRole { get; set; }
-
 	}
 }

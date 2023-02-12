@@ -13,5 +13,6 @@ namespace BookReader.Domain.Entity
 		public string? Login { get; set; }
 		public string? Password { get; set; }
 		public UserRole UserRole { get; set; }
+		public UserProfile UserProfile { get; set; }
 	}
 }

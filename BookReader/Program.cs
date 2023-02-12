@@ -37,13 +37,14 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 });
 
+builder.Services.AddScoped<IBaseRepository<User>, AccountRepository>();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IBookService, BookService>();
-builder.Services.AddScoped<IAccountService, AccountService>();
-builder.Services.AddScoped<IBaseRepository<User>, AccountRepository>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<IAccountInterface, AccountService>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
-
+builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
+builder.Services.AddScoped<IProfileInterface, ProfileService>();
 
 
 var app = builder.Build();

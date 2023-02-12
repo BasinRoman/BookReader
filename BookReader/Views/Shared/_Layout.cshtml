@@ -20,6 +20,7 @@
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
+
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				  <ul class="navbar-nav ml-auto">
 					<li class="nav-item">
@@ -38,24 +39,26 @@
 						</li>
 					}
 				  </ul>
+				</div>	
+				
+				<!-- Button trigger for Login/Register modal + Profile-->
 					@if (!User.Identity.IsAuthenticated)
 					{
-						<!-- Button trigger for Login/Register modal -->
 						<button type="button" class="btn btn-primary" onclick="openModalLoginRegister(event)">
 							Login
 						</button>
 					}
 					else
 					{
+						<a class="nav-link active" aria-current="page" href="#" style="font-size:22px"><img class="book_icon" src="~/assets/profile_men.png"/>Profile</a>
 						<!-- Button trigger for Log Out modal -->
-						<a asp-controller="Account" asp-action="LogOut">
-							<button  class="btn btn-primary">Log Out</button>
+						<a asp-controller="Account" asp-action="LogOut" class="nav-link active">
+							<button  class="btn btn-outline-warning">Log Out</button>
 						</a>
 					}
-
-					<!-- div for login/register modals (loading via ajax) first popup up on press Login button -->
-					<div id="my_login_modal"> </div>
-				</div>								
+					
+				<!-- div for login/register modals (loading via ajax) first popup up on press Login button -->
+				<div id="my_login_modal"> </div>
 			</div>
 		</nav>
 	</header>
