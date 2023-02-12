@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BookReader.Domain.Enum;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace BookReader.Domain.ViewModel
@@ -6,7 +7,10 @@ namespace BookReader.Domain.ViewModel
 	public class RegisterViewModel
 	{
 		[Required(ErrorMessage = "Please enter login")]
-		public string Login { get; set; }	
+		public string Login { get; set; }
+
+		[Required(ErrorMessage = "Please choose your gender")]
+		public Gender Gender { get; set; }	
 
 		[Required]
 		[Display(Name = "Password")]

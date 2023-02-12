@@ -11,9 +11,10 @@ namespace BookReader.Controllers
 		{
 			this.profileInterface = profileInterface;	
 		}
-		public async Task<IActionResult> GetProfile(string userName) // https://localhost:7138/profile/GetProfile?userName=admin 
+		public async Task<IActionResult> GetProfile() // https://localhost:7138/profile/GetProfile?userName=admin 
         {
-			var response = await profileInterface.GetProfile(userName);
+			var currentUser = User.Identity.Name;
+			var response = await profileInterface.GetProfile(currentUser);
 			return View(response.Data);
 		}
 	}

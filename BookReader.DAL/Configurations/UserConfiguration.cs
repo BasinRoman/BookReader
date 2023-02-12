@@ -18,7 +18,7 @@ namespace BookReader.DAL.Configurations
 			
 			builder.HasOne(x => x.UserProfile).
 				WithOne(x => x.User).
-				HasPrincipalKey<User>(x => x.Id).OnDelete(DeleteBehavior.Cascade);
+				HasPrincipalKey<User>(x => x.Id).OnDelete(DeleteBehavior.Cascade).IsRequired();
 			
 			builder.HasData(new User
 			{

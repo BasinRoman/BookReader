@@ -117,7 +117,12 @@ namespace BookReader.Service.Implementations
 				{
 					Login = userViewModel.Login,
 					Password = HashPasswordExtension.HashPassword(userViewModel.Password),
-					UserRole = Domain.Enum.UserRole.user
+					UserRole = Domain.Enum.UserRole.user,
+					UserProfile = new UserProfile()
+					{
+						Sex = userViewModel.Gender
+					}
+				
 				};
 				bool request = await _userRepository.Create(user_to_create);
 
