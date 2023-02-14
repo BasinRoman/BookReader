@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookReader.Domain.Enum;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ namespace BookReader.Domain.ViewModel
 	public class ProfileViewModel
 	{
 		public int Age { get; set; }
-		public string Sex { get; set; }
+		public Gender Gender { get; set; }
 		public string Email { get; set; }
 		public string UserName { get; set; }
 		

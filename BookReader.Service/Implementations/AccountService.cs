@@ -120,7 +120,7 @@ namespace BookReader.Service.Implementations
 					UserRole = Domain.Enum.UserRole.user,
 					UserProfile = new UserProfile()
 					{
-						Sex = userViewModel.Gender
+						Gender = userViewModel.Gender
 					}
 				
 				};

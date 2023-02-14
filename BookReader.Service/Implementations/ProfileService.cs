@@ -26,8 +26,8 @@ namespace BookReader.Service.Implementations
 				{
 					Age = profile.Age,
 					Email = profile.Email,
-					Sex = profile.Sex.ToString(),
-					//UserName = profile.User.Id.ToString(),
+					Gender = profile.Gender,
+					UserName = profile.User.Login.ToString(),
 				};
 				baseResponse.statusCode = Domain.Enum.StatusCode.ok; 
 				return baseResponse;

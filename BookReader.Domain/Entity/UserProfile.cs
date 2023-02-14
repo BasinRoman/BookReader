@@ -11,7 +11,7 @@ namespace BookReader.Domain.Entity
 	{
 		public int Id { get; set; }
 		public int Age { get; set; }
-		public Gender Sex { get; set; }
+		public Gender Gender { get; set; }
 		public string Email { get; set; }
 
 		//ForeignKey

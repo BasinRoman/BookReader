@@ -44,8 +44,9 @@ namespace BookReader.DAL.Repositories
 
 		public async Task<UserProfile> GetByLogin(string loginName)
 		{
-			return await _db.UserProfiles.FirstOrDefaultAsync(x => x.User.Login == loginName);
-		}
+            //return await _db.UserProfiles.FirstOrDefaultAsync(x => x.User.Login == loginName);
+            return await _db.UserProfiles.Include(p =>p.User).Where(x=>x.User.Login == loginName).FirstOrDefaultAsync();
+        }
 
 		public Task<IEnumerable<UserProfile>> Select()
 		{

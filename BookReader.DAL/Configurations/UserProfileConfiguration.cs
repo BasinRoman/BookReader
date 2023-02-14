@@ -16,7 +16,7 @@ namespace BookReader.DAL.Configurations
 		{
 			builder.Property(x => x.Id).ValueGeneratedOnAdd();
 			builder.Property(x => x.Age);
-			builder.Property(x => x.Sex);
+			builder.Property(x => x.Gender);
 			builder.Property(x => x.Email);
 			builder.Property(x => x.UserId);
 		}
