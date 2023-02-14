@@ -9,7 +9,7 @@ using NuGet.Protocol.Core.Types;
 using System.Security.Claims;
 
 namespace BookReader.Controllers
-{
+{ //test git
     public class AccountController : Controller
     {
         private readonly IAccountInterface accountService;
